@@ -189,12 +189,9 @@ export default function About() {
                 about.AboutTitle ||
                 "Стоматология"
               }
-              width={about.AboutImage.width || 750}
-              height={about.AboutImage.height || 1125}
+              width={1920}
+              height={1080}
               className={styles.about_image}
-              priority
-              // Оптимизация Next.js Image
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
             // Fallback если изображение не загрузилось
