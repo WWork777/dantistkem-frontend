@@ -6,7 +6,7 @@ import ReviewsSlider from "@/components/main-page/rewievs-slider/rewievs-slider"
 import Contacts from "@/components/main-page/Contacts/Contacts";
 
 export async function generateMetadata() {
-  const canonicalURL = "https://ваш-сайт.рф";
+  const canonicalURL = "https://dantistkem.ru";
   const title =
     "Стоматология в Кемерово | Качественное лечение зубов, имплантация";
   const description =
@@ -22,10 +22,11 @@ export async function generateMetadata() {
       canonical: canonicalURL,
     },
     openGraph: {
-      title: `${title} | Стоматология Тридцать Два`,
+      title: `Стоматология в Кемерово | Качественное лечение зубов, имплантация`,
       description: description,
       url: canonicalURL,
-      siteName: "Стоматология Тридцать Два - Кемерово",
+      siteName:
+        "Современная стоматологическая клиника в Кемерово. Лечение кариеса, имплантация, протезирование, отбеливание, детская стоматология. Опытные врачи, новейшее оборудование, безболезненное лечение.",
       images: [
         {
           url: `${canonicalURL}/og-image.jpg`,
@@ -59,9 +60,9 @@ export async function generateMetadata() {
       google: "ваш-google-verification-code",
       yandex: "ваш-yandex-verification-code",
     },
-    authors: [{ name: "Стоматология Тридцать Два" }],
-    creator: "Стоматология Тридцать Два",
-    publisher: "Стоматология Тридцать Два",
+    authors: [{ name: "Дантист Кемерово" }],
+    creator: "Дантист Кемерово",
+    publisher: "Дантист Кемерово",
     formatDetection: {
       telephone: true,
       date: true,
@@ -75,7 +76,7 @@ export async function generateMetadata() {
         {
           "@context": "https://schema.org",
           "@type": "MedicalClinic",
-          name: "Стоматология Тридцать Два",
+          name: "Дантист Кемерово",
           description: description,
           url: canonicalURL,
           logo: `${canonicalURL}/logo.png`,
@@ -113,7 +114,7 @@ export async function generateMetadata() {
         {
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          name: "Стоматология Тридцать Два",
+          name: "Дантист Кемерово",
           description: description,
           url: canonicalURL,
           address: {
