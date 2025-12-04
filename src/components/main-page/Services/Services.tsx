@@ -5,11 +5,86 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+// Интерфейс для изображения услуги
+interface ServiceImage {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number;
+  height: number;
+  formats: {
+    thumbnail: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+    large: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+    medium: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+    small: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+  };
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: string | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 interface ServiceCardProps {
   title: string;
   description: string;
-  image: string;
+  imageUrl: string;
   link: string;
+  altText?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 interface ServiceData {
@@ -21,9 +96,18 @@ interface ServiceData {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  ServiceImage: ServiceImage | null; // Добавляем поле для изображения
 }
 
-function ServiceCard({ title, description, image, link }: ServiceCardProps) {
+function ServiceCard({
+  title,
+  description,
+  imageUrl,
+  link,
+  altText,
+  imageWidth = 1080,
+  imageHeight = 1920,
+}: ServiceCardProps) {
   return (
     <article className={styles.card}>
       <div className={styles.decor}>
@@ -34,13 +118,20 @@ function ServiceCard({ title, description, image, link }: ServiceCardProps) {
           <Image src="/services/zub2.svg" alt="зуб" width={30} height={30} />
         </div>
       </div>
-      <Image
-        src={image}
-        alt={title}
-        height={1920}
-        width={1080}
-        className={styles.service_image}
-      />
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={altText || title}
+          width={imageWidth}
+          height={imageHeight}
+          className={styles.service_image}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      ) : (
+        <div className={styles.image_placeholder}>
+          <span>Нет изображения</span>
+        </div>
+      )}
       <div className={styles.service_text}>
         <h3>{title}</h3>
         <span>{description}</span>
@@ -58,7 +149,7 @@ export default function Services() {
   const getServices = async () => {
     try {
       setLoading(true);
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/services`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/services?populate=*`;
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -84,6 +175,29 @@ export default function Services() {
   useEffect(() => {
     getServices();
   }, []);
+
+  // Функция для получения URL изображения
+  const getServiceImageUrl = (service: ServiceData) => {
+    if (!service.ServiceImage) {
+      return "/services/serviceImage.jpg"; // Дефолтное изображение
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "";
+    const image = service.ServiceImage;
+
+    // Используем medium формат для оптимального качества, или оригинал если нет medium
+    const imageUrl = image.formats?.medium?.url || image.url;
+
+    return imageUrl ? `${baseUrl}${imageUrl}` : "/services/serviceImage.jpg";
+  };
+
+  // Функция для получения альтернативного текста
+  const getServiceImageAlt = (service: ServiceData) => {
+    if (service.ServiceImage?.alternativeText) {
+      return service.ServiceImage.alternativeText;
+    }
+    return service.ServiceName;
+  };
 
   if (loading) {
     return (
@@ -119,15 +233,25 @@ export default function Services() {
     <section className="container" id="services">
       <h2 className={styles.title}>Услуги</h2>
       <div className={styles.services_grid}>
-        {services.map((service) => (
-          <ServiceCard
-            key={service.id}
-            title={service.ServiceName}
-            description={service.ServiceDescription}
-            image="/services/serviceImage.jpg" // Используем дефолтное изображение или можно добавить поле в Strapi
-            link={service.ServiceLink}
-          />
-        ))}
+        {services.map((service) => {
+          const imageUrl = getServiceImageUrl(service);
+          const altText = getServiceImageAlt(service);
+          const imageWidth = service.ServiceImage?.width || 1080;
+          const imageHeight = service.ServiceImage?.height || 1920;
+
+          return (
+            <ServiceCard
+              key={service.id}
+              title={service.ServiceName}
+              description={service.ServiceDescription}
+              imageUrl={imageUrl}
+              link={service.ServiceLink}
+              altText={altText}
+              imageWidth={imageWidth}
+              imageHeight={imageHeight}
+            />
+          );
+        })}
       </div>
       <button className={styles.all}>Смотреть все</button>
     </section>
