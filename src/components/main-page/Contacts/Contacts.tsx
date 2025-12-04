@@ -145,7 +145,7 @@ export default function Contacts() {
           {contact.Telegram && (
             <div className={styles.text_item}>
               <span>
-                Telgram: <br />
+                Telegram: <br />
               </span>
               <b>
                 <a
