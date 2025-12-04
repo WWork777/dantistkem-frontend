@@ -4,6 +4,78 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+// Интерфейс для изображения
+export interface AboutImage {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number;
+  height: number;
+  formats: {
+    thumbnail: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+    large: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+    small: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+    medium: {
+      name: string;
+      hash: string;
+      ext: string;
+      mime: string;
+      path: string | null;
+      width: number;
+      height: number;
+      size: number;
+      sizeInBytes: number;
+      url: string;
+    };
+  };
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: string | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 export interface AboutData {
   id: number;
   documentId: string;
@@ -20,6 +92,7 @@ export interface AboutData {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  AboutImage: AboutImage; // Добавляем поле для изображения
 }
 
 export default function About() {
@@ -31,7 +104,7 @@ export default function About() {
     try {
       setLoading(true);
 
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/abouts`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/abouts?populate=*`;
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -88,18 +161,52 @@ export default function About() {
     );
   }
 
+  // Формируем полный URL для изображения
+  const getImageUrl = (image: AboutImage) => {
+    // В зависимости от вашей конфигурации, может потребоваться добавить базовый URL
+    const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "";
+    return image?.url ? `${baseUrl}${image.url}` : "";
+  };
+
+  // Используем изображение medium формата для лучшего качества
+  const imageUrl = about.AboutImage
+    ? about.AboutImage.formats?.medium?.url || about.AboutImage.url
+    : "";
+
+  const fullImageUrl = imageUrl
+    ? `${process.env.NEXT_PUBLIC_STRAPI_URL || ""}${imageUrl}`
+    : "";
+
   return (
     <section className="container" id="about">
       <div className={styles.about_container}>
         <div className={styles.about_image_container}>
-          <Image
-            src={"/about/about.jpg"}
-            alt="Стоматология"
-            width={1920}
-            height={1080}
-            className={styles.about_image}
-            priority
-          />
+          {about.AboutImage ? (
+            <Image
+              src={fullImageUrl}
+              alt={
+                about.AboutImage.alternativeText ||
+                about.AboutTitle ||
+                "Стоматология"
+              }
+              width={about.AboutImage.width || 750}
+              height={about.AboutImage.height || 1125}
+              className={styles.about_image}
+              priority
+              // Оптимизация Next.js Image
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          ) : (
+            // Fallback если изображение не загрузилось
+            <Image
+              src="/about/about.jpg"
+              alt="Стоматология"
+              width={750}
+              height={1125}
+              className={styles.about_image}
+              priority
+            />
+          )}
         </div>
         <div className={styles.about_text}>
           <h2>{about.AboutTitle}</h2>
