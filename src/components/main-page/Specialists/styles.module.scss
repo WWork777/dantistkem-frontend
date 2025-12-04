@@ -1,0 +1,311 @@
+.title {
+  color: black;
+  font-size: 51px;
+  font-weight: 600;
+  margin-bottom: 10px;
+
+  @media (max-width: 1200px) {
+    font-size: 42px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 32px;
+  }
+}
+
+.description {
+  color: black;
+  font-size: 20px;
+  line-height: 1.6;
+
+  @media (max-width: 1200px) {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+    margin-bottom: 25px;
+  }
+}
+
+.slider_container {
+  position: relative;
+  margin-top: 50px;
+
+  @media (max-width: 768px) {
+    padding: 0 30px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 15px;
+  }
+}
+
+.swiper {
+  padding: 20px 0 50px !important;
+  position: relative;
+  :global(.swiper-pagination-bullet) {
+    background: #006837;
+    opacity: 0.3;
+    width: 12px;
+    height: 12px;
+
+    &:global(.swiper-pagination-bullet-active) {
+      opacity: 1;
+      background: #006837;
+    }
+
+    @media (max-width: 768px) {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    color: #006837;
+
+    &::after {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.swiper_slide {
+  height: auto;
+}
+
+.card_container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  flex-grow: 1;
+  margin-bottom: 15px;
+  height: 450px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .card_link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: 0.6s ease all;
+
+    &:hover {
+      background: #006837;
+
+      img {
+        filter: brightness(0) invert(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 45px;
+      height: 45px;
+      top: 15px;
+      right: 15px;
+    }
+
+    @media (max-width: 480px) {
+      width: 40px;
+      height: 40px;
+      top: 12px;
+      right: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    height: 400px;
+  }
+  @media (max-width: 400px) {
+    height: 370px;
+  }
+}
+
+.image_wrapper {
+  position: relative;
+  width: 100%;
+  height: 500px;
+
+  @media (max-width: 1200px) {
+    height: 280px;
+  }
+
+  @media (max-width: 992px) {
+    height: 250px;
+  }
+
+  @media (max-width: 768px) {
+    height: 220px;
+  }
+
+  @media (max-width: 480px) {
+    height: 250px;
+  }
+}
+
+.specialists_image {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+
+  .card:hover & {
+    transform: scale(1.03);
+  }
+}
+
+.specialists_image_blur {
+  position: absolute;
+  bottom: 120px;
+  right: 100px;
+  width: 70%;
+  height: 80%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 104, 55, 0.342) 0%,
+    rgba(0, 104, 55, 0.89) 100%
+  );
+  filter: blur(60px);
+  border-radius: 100% 20% 100% 30%;
+  z-index: 0;
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+
+.specialists_special {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+
+  span {
+    background: #006837;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    backdrop-filter: blur(5px);
+    display: inline-block;
+
+    @media (max-width: 1200px) {
+      font-size: 15px;
+      padding: 7px 14px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 13px;
+      padding: 5px 10px;
+    }
+  }
+}
+
+.specialists_name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+  display: flex;
+
+  @media (max-width: 1200px) {
+    font-size: 17px;
+    min-height: 50px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    min-height: 45px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+    min-height: 40px;
+  }
+}
+
+.slider_navigation {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.nav_button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #006837;
+  color: #006837;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #006837;
+    color: white;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+// Убираем старую сетку, если она есть
+.specialists_grid {
+  display: none;
+}
