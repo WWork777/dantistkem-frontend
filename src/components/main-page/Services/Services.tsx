@@ -253,7 +253,7 @@ export default function Services() {
           );
         })}
       </div>
-      <button className={styles.all}>Смотреть все</button>
+      {/* <button className={styles.all}>Смотреть все</button> */}
     </section>
   );
 }

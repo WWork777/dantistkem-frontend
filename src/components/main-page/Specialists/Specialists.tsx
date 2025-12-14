@@ -23,9 +23,14 @@ interface SpecialistData {
   documentId: string;
   SpecialistSpecial: string;
   SpecialistName: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+  SpecilaistImage?: {
+    url: string;
+    formats?: {
+      small?: { url: string };
+      medium?: { url: string };
+      large?: { url: string };
+    };
+  };
 }
 
 function SpecialistsCard({ title, image, name, link }: SpecialistCardProps) {
@@ -69,7 +74,7 @@ export default function Specialists() {
   const getSpecialists = async () => {
     try {
       setLoading(true);
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/specialists`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/specialists?populate=*`;
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -90,6 +95,17 @@ export default function Specialists() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const getImageUrl = (image?: SpecialistData["SpecilaistImage"]) => {
+    if (!image) {
+      return "/specialists/specialist.png";
+    }
+
+    const formatUrl =
+      image.formats?.medium?.url || image.formats?.small?.url || image.url;
+
+    return `${process.env.NEXT_PUBLIC_STRAPI_URL}${formatUrl}`;
   };
 
   useEffect(() => {
@@ -166,12 +182,12 @@ export default function Specialists() {
           className={styles.swiper}
         >
           {specialists.map((specialist) => (
-            <SwiperSlide key={specialist.id} className={styles.swiper_slide}>
+            <SwiperSlide key={specialist.id}>
               <SpecialistsCard
                 title={specialist.SpecialistSpecial}
-                image="/specialists/specialist.png" // Используем дефолтное изображение
-                link="/specialists" // Можно использовать documentId для динамических ссылок: `/specialists/${specialist.documentId}`
                 name={specialist.SpecialistName}
+                link={`/specialists/${specialist.documentId}`}
+                image={getImageUrl(specialist.SpecilaistImage)}
               />
             </SwiperSlide>
           ))}
