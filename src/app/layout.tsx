@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
+import YandexMetrika from "@/components/YandexMetrika/YandexMEtrika";
 
 const geistSans = Montserrat({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable}`}>
         <Header />
         {children}
+        <YandexMetrika />
         <Footer />
       </body>
     </html>
