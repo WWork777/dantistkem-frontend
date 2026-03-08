@@ -53,7 +53,7 @@ const PricesPage: React.FC<Props> = ({ className }) => {
         setLoading(true);
         // Добавляем сортировку по категории и типу
         const response = await fetch(
-          "https://admin.dantistkem.ru/api/prices?sort[0]=Category&sort[1]=Type",
+          "https://admin.dantistkem.ru/api/prices?sort[0]=Category&sort[1]=Type&pagination[limit]=1000",
         );
 
         if (!response.ok) {
