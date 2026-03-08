@@ -77,38 +77,93 @@
 
 .footer_left_item {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
   transition: all 0.3s ease;
   padding: 8px 12px;
   border-radius: 8px;
+  width: 100%; // Добавляем ширину 100%
 
+  // Улучшаем стили для реквизитов
   p {
     font-size: 18px;
     font-weight: 500;
     transition: all 0.3s ease;
+    line-height: 1.5; // Улучшаем читаемость
+    margin: 0; // Убираем отступы по умолчанию
+
+    // Стили для ООО, ИНН, ОГРН
+    &:first-of-type {
+      font-weight: 600; // ООО делаем жирнее
+      color: #006837; // Добавляем акцентный цвет
+      margin-bottom: 5px; // Добавляем отступ снизу
+    }
+
+    // Для ИНН и ОГРН
+    &:not(:first-of-type) {
+      font-size: 16px; // Немного уменьшаем размер
+      color: #333; // Более мягкий цвет
+      font-weight: 400; // Обычная жирность
+      border-left: 2px solid #00683733; // Добавляем декоративную линию
+      padding-left: 10px; // Отступ для линии
+
+      @media (max-width: 768px) {
+        align-items: center;
+        text-align: center;
+        border-left: none; // Убираем линию на мобилках
+        padding-left: 0;
+        // background-color: #f5f5f5; // Добавляем легкий фон
+        padding: 5px 10px; // Добавляем паддинги
+        border-radius: 4px; // Скругляем углы
+        width: fit-content; // Ширина по контенту
+        margin: 0 auto; // Центрируем
+      }
+    }
 
     @media (max-width: 1200px) {
       font-size: 16px;
+      &:not(:first-of-type) {
+        font-size: 15px;
+      }
     }
 
     @media (max-width: 768px) {
       font-size: 15px;
       text-align: center;
+
+      &:first-of-type {
+        font-size: 18px; // Оставляем ООО крупнее
+        margin-bottom: 10px;
+      }
+
+      &:not(:first-of-type) {
+        font-size: 14px;
+        display: inline-block; // Делаем блочными для лучшего центрирования
+        margin: 2px auto; // Центрируем
+      }
     }
 
-    // @media (max-width: 480px) {
-    //   font-size: 14px;
-    // }
+    @media (max-width: 480px) {
+      font-size: 14px;
+
+      &:first-of-type {
+        font-size: 16px;
+      }
+
+      &:not(:first-of-type) {
+        font-size: 13px;
+        padding: 4px 8px;
+      }
+    }
   }
 
   &:hover {
-    background-color: rgba(var(--color-decorate), 0.1);
+    background-color: rgba(0, 104, 55, 0.1);
     transform: translateX(5px);
 
     p {
-      color: var(--color-decorate);
+      color: #006837;
     }
 
     .footer_icon {
@@ -119,16 +174,89 @@
   @media (max-width: 768px) {
     flex-direction: column;
     text-align: center;
+    align-items: center;
     gap: 8px;
-    padding: 12px 8px;
+    padding: 15px 12px; // Увеличиваем паддинги
     width: 100%;
+    background-color: rgba(0, 104, 55, 0.05); // Легкий фон для всего блока
+    border-radius: 12px; // Увеличиваем скругление
 
     &:hover {
       transform: translateY(-3px);
     }
+
+    // Создаем сетку для реквизитов
+    p {
+      &:not(:first-of-type) {
+        display: inline-block;
+        margin: 3px;
+      }
+    }
   }
+
+  @media (max-width: 480px) {
+    padding: 12px 10px;
+    gap: 6px;
+  }
+
   img {
     width: 100%;
+    max-width: 200px; // Ограничиваем максимальную ширину логотипа
+    margin-bottom: 10px; // Добавляем отступ снизу
+
+    @media (max-width: 768px) {
+      max-width: 180px; // Уменьшаем на планшетах
+      margin: 0 auto 15px; // Центрируем
+    }
+
+    @media (max-width: 480px) {
+      max-width: 150px; // Еще уменьшаем на телефонах
+    }
+  }
+}
+
+// Альтернативный вариант с более структурированным подходом
+// Если хотите использовать дополнительную разметку в JSX
+.footer_company_details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  .company_name {
+    font-weight: 600;
+    color: #006837;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  .company_detail {
+    font-size: 15px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span {
+      font-weight: 500;
+      color: #006837;
+      min-width: 45px; // Фиксированная ширина для меток
+    }
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      background-color: #f5f5f5;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin: 2px auto;
+      width: fit-content;
+      font-size: 14px;
+
+      span {
+        min-width: auto;
+        margin-right: 5px;
+      }
+    }
   }
 }
 
@@ -224,7 +352,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(var(--color-decorate), 0.1);
+      background-color: rgba(0, 104, 55, 0.1);
       border-radius: 8px;
       z-index: 1;
     }
@@ -289,7 +417,7 @@
   }
 
   &:hover {
-    background-color: rgba(var(--color-decorate), 0.1);
+    background-color: rgba(0, 104, 55, 0.1);
 
     p {
       color: #006837;
@@ -331,8 +459,8 @@
 
   &:hover {
     transform: scale(1.2) translateY(-3px);
-    background: rgba(var(--color-decorate), 0.2);
-    box-shadow: 0 5px 15px rgba(var(--color-decorate), 0.3);
+    background: rgba(0, 104, 55, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 104, 55, 0.3);
   }
 
   @media (max-width: 768px) {

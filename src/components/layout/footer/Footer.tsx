@@ -99,6 +99,9 @@ export default function Footer() {
         <div className={styles.footer_left_container}>
           <div className={styles.footer_left_item}>
             <img src="/logo/logo.svg" alt="Логотип стоматологической клиники" />
+            <p>ООО "Дантистъ"</p>
+            <p>ИНН: 4205161052</p>
+            <p>ОГРН: 1084205014013</p>
           </div>
         </div>
       </div>
