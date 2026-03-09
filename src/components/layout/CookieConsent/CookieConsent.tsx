@@ -62,9 +62,9 @@ export default function CookieConsent() {
               Отклонить
             </button>
           </div>
-          <Link href="/privacy-policy" className={styles.link}>
+          {/* <Link href="/privacy-policy" className={styles.link}>
             Политика конфиденциальности
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
