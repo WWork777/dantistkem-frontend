@@ -1,0 +1,200 @@
+// components/CookieConsent/styles.module.scss
+
+.overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto 20px;
+  padding: 0 20px;
+
+  @media (max-width: 480px) {
+    margin: 0 15px 15px;
+    padding: 0;
+  }
+}
+
+.content {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 104, 55, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #006837, #00a86b);
+  }
+}
+
+.icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 20px;
+
+  h3 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+
+  p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+
+    @media (max-width: 480px) {
+      font-size: 13px;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.acceptBtn {
+  flex: 1;
+  background: #006837;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #008f4c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 104, 55, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 16px;
+  }
+}
+
+.declineBtn {
+  flex: 1;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #f5f5f5;
+    border-color: #999;
+    color: #333;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 16px;
+  }
+}
+
+.link {
+  display: block;
+  text-align: center;
+  color: #006837;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #00a86b;
+    text-decoration: underline;
+  }
+}
+
+// Анимация появления
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Темная тема (если нужна)
+@media (prefers-color-scheme: dark) {
+  .content {
+    background: #1a1a1a;
+    border-color: rgba(255, 255, 255, 0.1);
+
+    h3 {
+      color: #fff;
+    }
+
+    p {
+      color: #ccc;
+    }
+  }
+
+  .declineBtn {
+    color: #ccc;
+    border-color: #444;
+
+    &:hover {
+      background: #333;
+      border-color: #666;
+      color: #fff;
+    }
+  }
+}
