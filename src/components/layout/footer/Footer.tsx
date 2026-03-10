@@ -107,21 +107,21 @@ export default function Footer() {
       </div>
       <div className={styles.footer_center}>
         <div className={styles.footer_center_top}>
-          <Link href="#about" className={styles.footer_center_link}>
+          <Link href="/#about" className={styles.footer_center_link}>
             <p>О нас</p>
           </Link>
-          <Link href="#services" className={styles.footer_center_link}>
+          <Link href="/#services" className={styles.footer_center_link}>
             <p>Услуги</p>
           </Link>
-          <Link href="#specialists" className={styles.footer_center_link}>
+          <Link href="/#specialists" className={styles.footer_center_link}>
             <p>Специалисты</p>
           </Link>
         </div>
         <div className={styles.footer_center_top}>
-          <Link href="#" className={styles.footer_center_link}>
+          <Link href="/#license" className={styles.footer_center_link}>
             <p>Лицензии</p>
           </Link>
-          <Link href="#contacts" className={styles.footer_center_link}>
+          <Link href="/#contacts" className={styles.footer_center_link}>
             <p>Контакты</p>
           </Link>
         </div>
@@ -138,7 +138,7 @@ export default function Footer() {
           </Link>
           <div className={styles.footer_line}>|</div>
           <Link href={`tel:+7 (384) 233 32-05`}>
-            <p>+7 (384) 233 32-05</p>
+            <p>+7 (384-2) 333-205</p>
           </Link>
         </div>
         <div className={styles.footer_rigth__item}>

@@ -210,7 +210,7 @@ export default function Header() {
                 </a>
               )}
               <a href="tel:+7 (384) 233 32-05" className={styles.phone}>
-                +7 (384) 233 32-05
+                +7 (384-2)333-205
               </a>
             </div>
           </div>
@@ -294,7 +294,7 @@ export default function Header() {
             )}
 
             <Link href="tel:+7 (384) 233 32-05">
-              <span>+7 (384) 233 32-05</span>
+              <span>+7 (384-2) 333-205</span>
             </Link>
 
             <div className={styles.socials}>
