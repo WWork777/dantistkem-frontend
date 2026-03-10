@@ -22,10 +22,10 @@ export default function License() {
         <div className={styles.license_image_container}>
           {/* Если есть скан лицензии, положите его в папку public/license/ */}
           <Image
-            src="/about/license.avif" // Укажите правильный путь к изображению
+            src="/about/license.jpg" // Укажите правильный путь к изображению
             alt="Лицензия на осуществление медицинской деятельности ЛО-42-010002838"
-            width={600}
-            height={850}
+            width={500}
+            height={650}
             className={styles.license_image}
           />
         </div>
