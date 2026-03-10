@@ -118,6 +118,7 @@ export default function Contacts() {
             <Link href={`tel:${contact.PhoneNumber}`}>
               {contact.PhoneNumber}
             </Link>
+            <Link href={`tel:+7 (384) 233 32-05`}>+7 (384) 233 32-05</Link>
           </div>
           <div className={styles.text_item}>
             <span>

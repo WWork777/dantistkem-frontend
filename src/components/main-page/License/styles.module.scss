@@ -1,0 +1,130 @@
+.license_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 100px;
+  margin-top: 50px; // Отступ от предыдущего блока, поправьте под свой дизайн
+
+  @media (max-width: 1200px) {
+    gap: 70px;
+  }
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+.license_text {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  line-height: 1.6;
+
+  @media (max-width: 992px) {
+    width: 100%;
+    gap: 20px;
+  }
+
+  h2 {
+    color: black;
+    font-size: 51px;
+    margin: 0;
+
+    @media (max-width: 1200px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 22px;
+    }
+  }
+
+  p {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+
+    @media (max-width: 1200px) {
+      font-size: 17px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 15px;
+    }
+  }
+}
+
+.license_info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #f8f9fa; // Светло-серый фон для выделения
+  padding: 25px 30px;
+  border-left: 4px solid #006837; // Ваш фирменный зеленый
+  border-radius: 0 15px 15px 0;
+  margin-top: 10px;
+
+  @media (max-width: 992px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 480px) {
+    border-left: none;
+    border-top: 4px solid #006837;
+    border-radius: 0 0 15px 15px;
+  }
+}
+
+.license_number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #006837;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.license_date {
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}
+
+.license_image_container {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 992px) {
+    width: 100%;
+    max-width: 500px; // Чтобы скан не был слишком огромным на планшетах
+    margin: 0 auto;
+  }
+}
+
+.license_image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); // Легкая тень для эффекта документа
+  transition: transform 0.5s ease;
+  object-fit: cover;
+
+  &:hover {
+    transform: scale(1.02); // Легкое увеличение при наведении
+  }
+}

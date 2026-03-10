@@ -4,6 +4,7 @@ import Services from "@/components/main-page/Services/Services";
 import Specialists from "@/components/main-page/Specialists/Specialists";
 import ReviewsSlider from "@/components/main-page/rewievs-slider/rewievs-slider";
 import Contacts from "@/components/main-page/Contacts/Contacts";
+import License from "@/components/main-page/License/License";
 
 export async function generateMetadata() {
   const canonicalURL = "https://dantistkem.ru";
@@ -149,6 +150,7 @@ export default function Home() {
       <About />
       <Services />
       <Specialists />
+      <License />
       <ReviewsSlider />
       <Contacts />
     </div>

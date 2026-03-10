@@ -136,6 +136,10 @@ export default function Footer() {
           <Link href={`tel:${cleanPhoneNumber(contact.SecondPhoneNumber)}`}>
             <p>{contact.SecondPhoneNumber}</p>
           </Link>
+          <div className={styles.footer_line}>|</div>
+          <Link href={`tel:+7 (384) 233 32-05`}>
+            <p>+7 (384) 233 32-05</p>
+          </Link>
         </div>
         <div className={styles.footer_rigth__item}>
           <Link href={`mailto:${contact.Email}`}>
