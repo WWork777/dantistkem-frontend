@@ -65,7 +65,7 @@ export default function ReviewsSlider() {
   const getReviews = async () => {
     try {
       setLoading(true);
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/rewies`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/rewies?pagination[pageSize]=100`;
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
       const data = await response.json();
