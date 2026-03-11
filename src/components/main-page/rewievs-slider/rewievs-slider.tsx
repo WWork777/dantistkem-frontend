@@ -1,271 +1,263 @@
-'use client'
-import { useEffect, useRef, useState } from 'react'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import { Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import styles from './styles.module.scss'
+"use client";
+import { useEffect, useRef, useState, useMemo } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import styles from "./styles.module.scss";
 
 interface ReviewData {
-	id: number
-	documentId: string
-	RewieName: string
-	RewieDate: string
-	RewieText: string
-	RewieStars?: string
-	createdAt: string
-	updatedAt: string
-	publishedAt: string
+  id: number;
+  documentId: string;
+  RewieName: string;
+  RewieDate: string;
+  RewieText: string;
+  RewieStars?: string;
+  Source?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }
 
 interface AggregatorData {
-	id: string
-	name: string
-	rating: number
-	reviewsCount: number
-	ratingsCount: number
-	icon: string
+  id: string;
+  name: string;
+  rating: string; // Изменил на string для фиксации decimal
+  reviewsCount: number;
+  icon: string;
 }
 
 interface SliderCardProps {
-	name: string
-	date: string
-	stars: string
-	text: string
+  name: string;
+  date: string;
+  stars: string;
+  text: string;
+  onClick: () => void;
 }
 
-const SliderCard = ({ name, date, stars, text }: SliderCardProps) => {
-	return (
-		<div className={styles.slider_card}>
-			<h3>{name}</h3>
-			<span>{date}</span>
-			<div className={styles.stars_container}>
-				{Array.from({ length: parseInt(stars) || 5 }, (_, i) => (
-					<img key={i} src='/rewievs/star.svg' alt='star' />
-				))}
-			</div>
-			<p>{text}</p>
-			<b>Читать полностью</b>
-		</div>
-	)
-}
+const SliderCard = ({ name, date, stars, text, onClick }: SliderCardProps) => {
+  return (
+    <div className={styles.slider_card} onClick={onClick}>
+      <div className={styles.card_content}>
+        <h3>{name}</h3>
+        <span>{date}</span>
+        <div className={styles.stars_container}>
+          {Array.from({ length: parseInt(stars) || 5 }, (_, i) => (
+            <img key={i} src="/rewievs/star.svg" alt="star" />
+          ))}
+        </div>
+        <p className={styles.review_text}>{text}</p>
+      </div>
+      <b className={styles.read_more}>Читать полностью</b>
+    </div>
+  );
+};
 
 export default function ReviewsSlider() {
-	const [reviews, setReviews] = useState<ReviewData[]>([])
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
-	const [activeAggregator, setActiveAggregator] = useState<string>('all')
-	const swiperRef = useRef<any>(null)
+  const [reviews, setReviews] = useState<ReviewData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeAggregator, setActiveAggregator] = useState<string>("all");
+  const [selectedReview, setSelectedReview] = useState<ReviewData | null>(null);
+  const swiperRef = useRef<any>(null);
 
-	// Данные агрегаторов
-	const aggregatorsData: AggregatorData[] = [
-		{
-			id: 'all',
-			name: 'Все отзывы',
-			rating: 4.6,
-			reviewsCount: 209,
-			ratingsCount: 456,
-			icon: '',
-		},
-		{
-			id: 'prodoktorov',
-			name: 'ПРОдокторов',
-			rating: 4.8,
-			reviewsCount: 156,
-			ratingsCount: 156,
-			icon: '/rewievs/prodoktorov-icon.svg',
-		},
-		{
-			id: 'yandex',
-			name: 'Яндекс',
-			rating: 4.5,
-			reviewsCount: 89,
-			ratingsCount: 245,
-			icon: '/rewievs/yandex-icon.svg',
-		},
-		{
-			id: '2gis',
-			name: '2GIS',
-			rating: 4.3,
-			reviewsCount: 45,
-			ratingsCount: 55,
-			icon: '/rewievs/2gis-icon.svg',
-		},
-	]
+  const getReviews = async () => {
+    try {
+      setLoading(true);
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/rewies`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+      const data = await response.json();
+      if (data?.data) setReviews(data.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Неизвестная ошибка");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-	const getReviews = async () => {
-		try {
-			setLoading(true)
+  useEffect(() => {
+    getReviews();
+  }, []);
 
-			// Используем правильный endpoint
-			const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/rewies`
+  // --- ДИНАМИЧЕСКИЙ ПОДСЧЕТ СТАТИСТИКИ ---
+  const aggregatorsStats = useMemo(() => {
+    const stats = [
+      { id: "all", name: "Все отзывы", icon: "" },
+      {
+        id: "prodoktorov",
+        name: "ПРОдокторов",
+        icon: "/rewievs/prodoktorov-icon.svg",
+      },
+      { id: "yandex", name: "Яндекс", icon: "/rewievs/yandex-icon.svg" },
+      { id: "gis", name: "2GIS", icon: "/rewievs/2gis-icon.svg" },
+    ];
 
-			console.log('Запрос к:', url)
+    return stats.map((agg) => {
+      const filtered = reviews.filter((r) =>
+        agg.id === "all"
+          ? true
+          : r.Source?.toLowerCase() === agg.id.toLowerCase(),
+      );
 
-			const response = await fetch(url)
+      const count = filtered.length;
+      const sum = filtered.reduce(
+        (acc, curr) => acc + parseInt(curr.RewieStars || "5"),
+        0,
+      );
+      const average = count > 0 ? (sum / count).toFixed(1) : "0.0";
 
-			if (!response.ok) {
-				throw new Error(`Ошибка HTTP: ${response.status}`)
-			}
+      return {
+        ...agg,
+        rating: average,
+        reviewsCount: count,
+      };
+    });
+  }, [reviews]);
 
-			const data = await response.json()
-			console.log('Полученные данные:', data)
+  const filteredReviews = useMemo(() => {
+    return reviews.filter((review) => {
+      if (activeAggregator === "all") return true;
+      return review.Source?.toLowerCase() === activeAggregator.toLowerCase();
+    });
+  }, [reviews, activeAggregator]);
 
-			// Проверяем структуру ответа Strapi
-			if (data?.data) {
-				setReviews(data.data)
-			} else {
-				console.warn('Неожиданный формат данных:', data)
-				setReviews([])
-			}
-		} catch (err) {
-			const errorMessage =
-				err instanceof Error ? err.message : 'Неизвестная ошибка'
-			setError(errorMessage)
-			console.error('Ошибка при загрузке отзывов:', err)
-		} finally {
-			setLoading(false)
-		}
-	}
+  const currentAggregator =
+    aggregatorsStats.find((agg) => agg.id === activeAggregator) ||
+    aggregatorsStats[0];
 
-	useEffect(() => {
-		getReviews()
-	}, [])
+  const handleAggregatorChange = (aggregatorId: string) => {
+    setActiveAggregator(aggregatorId);
+    if (swiperRef.current) swiperRef.current.slideTo(0);
+  };
 
-	const currentAggregator =
-		aggregatorsData.find(agg => agg.id === activeAggregator) ||
-		aggregatorsData[0]
+  if (loading)
+    return (
+      <section className="container">
+        <div className={styles.loading}>Загрузка...</div>
+      </section>
+    );
+  if (error)
+    return (
+      <section className="container">
+        <div className={styles.error}>
+          {error} <button onClick={getReviews}>Повторить</button>
+        </div>
+      </section>
+    );
 
-	const handleAggregatorChange = (aggregatorId: string) => {
-		setActiveAggregator(aggregatorId)
-		if (swiperRef.current) {
-			swiperRef.current.slideTo(0)
-		}
-	}
+  return (
+    <section id="reviews" className="container">
+      <div className={styles.rewievs_container}>
+        <div className={styles.rewievs_header_wrapper}>
+          <div className={styles.rewievs_header_main}>
+            <h2 className={styles.title}>Отзывы</h2>
+            <div className={styles.custom_navigation}>
+              <div className={styles.custom_prev}></div>
+              <div className={styles.custom_next}></div>
+            </div>
+          </div>
 
-	if (loading) {
-		return (
-			<section id='reviews' className='container'>
-				<div className={styles.loading}>
-					<p>Загрузка отзывов...</p>
-				</div>
-			</section>
-		)
-	}
+          <div className={styles.rewievs_buttons}>
+            {aggregatorsStats.map((agg) => (
+              <button
+                key={agg.id}
+                className={activeAggregator === agg.id ? styles.active : ""}
+                onClick={() => handleAggregatorChange(agg.id)}
+              >
+                <p>
+                  {agg.name} <span>({agg.reviewsCount})</span>
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
 
-	if (error) {
-		return (
-			<section id='reviews' className='container'>
-				<div className={styles.error}>
-					<p>Ошибка: {error}</p>
-					<button onClick={getReviews} className={styles.retryButton}>
-						Попробовать снова
-					</button>
-				</div>
-			</section>
-		)
-	}
+        <div className={styles.rewievs_container__bottom}>
+          <div className={styles.rating}>
+            <h3>{currentAggregator.rating}</h3>
+            <div className={styles.rewievs_name}>
+              <div className={styles.rewievs_geo}>
+                {currentAggregator.icon && (
+                  <img src="/rewievs/geo.svg" alt="" />
+                )}
+                <p>{currentAggregator.name}</p>
+              </div>
+              <div className={styles.summary_marks}>
+                <p>{currentAggregator.reviewsCount} отзывов получено</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-	if (reviews.length === 0) {
-		return (
-			<section id='reviews' className='container'>
-				<div className={styles.noData}>
-					<p>Отзывы не найдены</p>
-					<p>Добавьте отзывы в Strapi</p>
-				</div>
-			</section>
-		)
-	}
+      <div className={styles.home_team_slider}>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          className={styles.mySwiper}
+          spaceBetween={20}
+          slidesPerView={3}
+          navigation={{
+            nextEl: `.${styles.custom_next}`,
+            prevEl: `.${styles.custom_prev}`,
+          }}
+          breakpoints={{
+            320: { slidesPerView: 1.1, spaceBetween: 15 },
+            768: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
+          }}
+          onInit={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+        >
+          {filteredReviews.map((review) => (
+            <SwiperSlide key={review.id}>
+              <SliderCard
+                name={review.RewieName}
+                date={review.RewieDate}
+                text={review.RewieText}
+                stars={review.RewieStars || "5"}
+                onClick={() => setSelectedReview(review)}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
-	return (
-		<>
-			<section id='reviews' className='container'>
-				<div className={styles.rewievs_container}>
-					<div className={styles.rewievs_container__top}>
-						<div>
-							<h2 className={styles.title}>Отзывы</h2>
-						</div>
-						<div className={`${styles.custom_navigation}`}>
-							<div className={`${styles.custom_prev}`}></div>
-							<div className={`${styles.custom_next}`}></div>
-						</div>
-					</div>
-					<div className={styles.rewievs_container__bottom}>
-						<div className={styles.rating}>
-							<h3>{currentAggregator.rating}</h3>
-							<div className={styles.rewievs_name}>
-								<div className={styles.rewievs_geo}>
-									{currentAggregator.icon && (
-										<img src='/rewievs/geo.svg' alt={currentAggregator.name} />
-									)}
-									<p>{currentAggregator.name}</p>
-								</div>
-								<div className={styles.summary_marks}>
-									<p>{currentAggregator.ratingsCount} оценок</p>
-								</div>
-							</div>
-							<div className={styles.rewievs_button}>
-								<button>
-									<p>Оставить отзыв</p>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className={styles.home_team_slider}>
-					<Swiper
-						modules={[Navigation, Pagination]}
-						className={styles.mySwiper}
-						spaceBetween={20}
-						slidesPerView='auto'
-						navigation={{
-							nextEl: `.${styles.custom_next}`,
-							prevEl: `.${styles.custom_prev}`,
-							disabledClass: 'swiper-button-disabled',
-						}}
-						breakpoints={{
-							320: {
-								slidesPerView: 1,
-								spaceBetween: 15,
-							},
-							480: {
-								slidesPerView: 1,
-								spaceBetween: 20,
-							},
-							768: {
-								slidesPerView: 2,
-								spaceBetween: 25,
-							},
-							1024: {
-								slidesPerView: 2,
-								spaceBetween: 30,
-							},
-							1440: {
-								slidesPerView: 3,
-								spaceBetween: 40,
-							},
-						}}
-						onInit={swiper => {
-							swiperRef.current = swiper
-							swiper.navigation.init()
-							swiper.navigation.update()
-						}}
-					>
-						{reviews.map(review => (
-							<SwiperSlide key={review.id}>
-								<SliderCard
-									name={review.RewieName}
-									date={review.RewieDate}
-									text={review.RewieText}
-									stars={review.RewieStars || '5'}
-								/>
-							</SwiperSlide>
-						))}
-					</Swiper>
-				</div>
-			</section>
-		</>
-	)
+      {selectedReview && (
+        <div
+          className={styles.modal_overlay}
+          onClick={() => setSelectedReview(null)}
+        >
+          <div
+            className={styles.modal_content}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className={styles.close_button}
+              onClick={() => setSelectedReview(null)}
+            >
+              &times;
+            </button>
+            <div className={styles.modal_header}>
+              <h3>{selectedReview.RewieName}</h3>
+              <span>{selectedReview.RewieDate}</span>
+              <div className={styles.stars_container}>
+                {Array.from(
+                  { length: parseInt(selectedReview.RewieStars || "5") },
+                  (_, i) => (
+                    <img key={i} src="/rewievs/star.svg" alt="star" />
+                  ),
+                )}
+              </div>
+            </div>
+            <div className={styles.modal_body}>
+              <p>{selectedReview.RewieText}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }
