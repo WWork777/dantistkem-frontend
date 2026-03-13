@@ -12,8 +12,6 @@ import servicesData from "../services.json";
 
 interface ServiceImage {
   url: string;
-  width: number;
-  height: number;
   alternativeText: string | null;
   formats: any | null;
 }
@@ -24,6 +22,9 @@ interface ServiceData {
   ServiceName: string;
   ServiceDescription: string;
   slug: string;
+  seoTitle?: string;       // Добавили SEO поле
+  seoDescription?: string; // Добавили SEO поле
+  keywords?: string;
   Body?: string;
   Content?: string | null;
   ServiceImage: ServiceImage | null;
