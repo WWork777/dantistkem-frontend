@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { Metadata } from "next";
 import styles from "./prices.module.scss";
+import Breadcrumbs from "@/components/layout/Breadcrumbs/Breadcrumbs";
 
 // Метаданные для страницы
 export const metadata: Metadata = {
@@ -238,19 +239,7 @@ const PricesPage = async () => {
     return (
       <>
         <section className={styles.container}>
-          <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
-            <div className={styles.breadcrumbItem}>
-              <Link href="/" className={styles.link}>
-                <span>Главная</span>
-              </Link>
-              <span className={styles.separator}>/</span>
-            </div>
-            <div className={styles.breadcrumbItem}>
-              <span className={styles.currentPage} aria-current="page">
-                Цены
-              </span>
-            </div>
-          </nav>
+          
 
           <h1 className={styles.title}>Цены на услуги</h1>
           <div className={styles.error} role="alert">
@@ -272,19 +261,14 @@ const PricesPage = async () => {
     return (
       <>
         <section className={styles.container}>
-          <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
-            <div className={styles.breadcrumbItem}>
-              <Link href="/" className={styles.link}>
-                <span>Главная</span>
-              </Link>
-              <span className={styles.separator}>/</span>
-            </div>
-            <div className={styles.breadcrumbItem}>
-              <span className={styles.currentPage} aria-current="page">
-                Цены
-              </span>
-            </div>
-          </nav>
+
+          
+          <Breadcrumbs
+            items={[
+              { label: "Услуги", href: "/services" },
+              { label: "Цены" },
+            ]}
+          />
 
           <h1 className={styles.title}>Цены на услуги</h1>
           <div className={styles.empty}>
@@ -313,20 +297,12 @@ const PricesPage = async () => {
       <meta name="yandex" content="index, follow" />
 
       <section className={styles.container}>
-        {/* Хлебные крошки */}
-        <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
-          <div className={styles.breadcrumbItem}>
-            <Link href="/" className={styles.link}>
-              <span>Главная</span>
-            </Link>
-            <span className={styles.separator}>/</span>
-          </div>
-          <div className={styles.breadcrumbItem}>
-            <span className={styles.currentPage} aria-current="page">
-              Цены
-            </span>
-          </div>
-        </nav>
+
+        <Breadcrumbs
+            items={[
+              { label: "Цены" },
+            ]}
+          />
 
         <h1 className={styles.title}>Цены на услуги</h1>
 

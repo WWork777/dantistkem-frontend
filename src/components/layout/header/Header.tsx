@@ -124,7 +124,7 @@ export default function Header() {
           {/* Навигация desktop */}
           <nav className={styles.nav}>
             <Link href="/#about">О нас</Link>
-            <Link href="/#services">Услуги</Link>
+            <Link href="/services">Услуги</Link>
             <Link href="/#specialists">Специалисты</Link>
             <Link href="/prices">Цены</Link>
             <Link href="/#license">Лицензии</Link>

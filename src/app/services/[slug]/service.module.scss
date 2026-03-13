@@ -1,0 +1,125 @@
+.block {
+
+  margin-top: 150px ;
+
+}
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 42px !important;
+  font-weight: 700 !important;
+  margin-bottom: 35px;
+  color: #1a2c3e;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  gap: 50px;
+  align-items: stretch;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+  }
+}
+
+.imageContainer {
+  flex: 0 0 35%;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 35, 70, 0.08);
+  max-height: 700px;
+  
+  img {
+    max-width: 100%;
+    height: 100%;
+    object-position: center;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (max-width: 900px) {
+    flex: 0 0 100%;
+    max-height: none; /* Убираем ограничение в 900px для телефона */
+
+    img {
+      height: auto; /* На телефоне возвращаем естественные пропорции */
+      max-height: 500px; /* По желанию: ограничение высоты картинки на телефоне */
+    }
+  }
+}
+
+.textContent {
+  flex: 1;
+  font-size: 18px;
+  line-height: 1.6;
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  h2, h3 {
+    color: #1a2c3e;
+    margin: 30px 0 15px;
+  }
+}
+
+.markdown {
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    
+    li {
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 10px;
+      &::marker {
+        color: #006837;
+        font-weight: 600;
+      }
+    }
+  }
+
+  strong {
+    font-weight: 600;
+    color: #1a2c3e;
+  }
+  
+  blockquote {
+    border-left: 4px solid #006837;
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+  }
+}
+
+.appointmentButton {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  margin-top: 40px;
+  padding: 16px 36px;
+  background: linear-gradient(90deg, #006837 0%, #009245 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 10px 20px rgba(0, 104, 55, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 104, 55, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}

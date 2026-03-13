@@ -1,0 +1,50 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 150px 20px 60px;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+
+  @media (max-width: 768px) {
+    padding: 140px 15px 40px;
+  }
+}
+
+// Заголовок страницы
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 35px;
+  color: #1a2c3e;
+  position: relative;
+  display: inline-block;
+
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     bottom: -10px;
+  //     left: 20px;
+  //     width: 80px;
+  //     height: 4px;
+  //     background: linear-gradient(90deg, #ffb74d, #ffa726);
+  //     border-radius: 4px;
+  //   }
+
+  @media (max-width: 1200px) {
+    font-size: 36px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 30px;
+
+    &::after {
+      width: 60px;
+      height: 3px;
+    }
+  }
+}
