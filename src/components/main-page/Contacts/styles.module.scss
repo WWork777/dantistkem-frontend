@@ -60,6 +60,12 @@
   }
 }
 
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
 .title {
   color: #000000;
   font-size: 51px;

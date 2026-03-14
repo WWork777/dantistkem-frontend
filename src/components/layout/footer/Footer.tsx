@@ -142,6 +142,12 @@ export default function Footer() {
           </Link>
         </div>
         <div className={styles.footer_rigth__item}>
+          <div className={styles.footer_schedule}>
+            <p>Пн-Пт: 09:00 - 21:00</p>
+            <p>Сб: 10:00 - 15:00 | Вс: Выходной</p>
+          </div>
+        </div>
+        <div className={styles.footer_rigth__item}>
           <Link href={`mailto:${contact.Email}`}>
             <p>{contact.Email}</p>
           </Link>
