@@ -130,7 +130,7 @@ export default function Hero() {
               priority
             />
             <Image
-              src={"/hero/hero-image.png"}
+              src={"/hero/hero2.png"}
               width={1920}
               height={1080}
               alt="Стоматологическая клиника"
