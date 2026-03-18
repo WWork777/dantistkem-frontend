@@ -350,6 +350,8 @@
   }
 }
 
+
+
 .hero_image {
   width: 80%;
   height: auto;
@@ -358,7 +360,10 @@
   z-index: 2;
   filter: drop-shadow(0 10px 20px rgba(0, 104, 55, 0.2));
   animation: imageGlow 3s ease-in-out infinite alternate;
+  
 }
+
+
 
 @keyframes imageGlow {
   from {
@@ -402,6 +407,25 @@
   animation: lineSlideIn 1s ease-out 1s forwards;
   opacity: 0;
   transform: translateX(50px);
+}
+
+
+@media (max-height: 900px) {
+  .hero_image_wrapper {
+    min-width: 150px;
+  }
+
+  .hero_image{
+    left: 80;
+  }
+
+  .hero_line{
+    display: none;
+  }
+
+  .hero_line_second {
+    display: none;
+  }
 }
 
 @keyframes lineSlideIn {
