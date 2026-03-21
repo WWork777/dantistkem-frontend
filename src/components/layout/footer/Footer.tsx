@@ -103,6 +103,8 @@ export default function Footer() {
             <p>ИНН: 4205161052</p>
             <p>ОГРН: 1084205014013</p>
             <p>КПП: 420501001</p>
+            <p>Юр. адрес: 650070, г. Кемерово, ул. Свободы 6, 97</p>
+            <p>Ген. директор - учредитель: Дудин Тимур Вениаминович</p>
           </div>
         </div>
       </div>
@@ -144,6 +146,7 @@ export default function Footer() {
         </div>
         <div className={styles.footer_rigth__item}>
           <div className={styles.footer_schedule}>
+            <p>Режим работы:</p>
             <p>Пн-Пт: 09:00 - 21:00</p>
             <p>Сб: 10:00 - 15:00 | Вс: Выходной</p>
           </div>
