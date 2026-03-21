@@ -147,7 +147,7 @@ export default function Footer() {
         <div className={styles.footer_rigth__item}>
           <div className={styles.footer_schedule}>
             <p>Режим работы:</p>
-            <p>Пн-Пт: 09:00 - 21:00</p>
+            <p>Пн-Пт: 09:00 - 19:00</p>
             <p>Сб: 10:00 - 15:00 | Вс: Выходной</p>
           </div>
         </div>
