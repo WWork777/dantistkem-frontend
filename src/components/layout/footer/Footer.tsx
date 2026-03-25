@@ -156,6 +156,7 @@ export default function Footer() {
             <p>{contact.Email}</p>
           </Link>
         </div>
+        
         <div className={styles.footer_socials}>
           {/* WhatsApp ссылка */}
           <Link
@@ -197,6 +198,13 @@ export default function Footer() {
             <img src="/socials/tg.svg" alt="Telegram" height={50} width={50} />
           </Link>
         </div>
+        <div className={styles.footer_rigth__item}>
+          <Link href="/docs/ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ДАНТИСТЪ.pdf" target="_blank">
+            <p>Политика конфиденциальности</p>
+          </Link>
+        </div>
+        
+        
       </div>
     </section>
   );
