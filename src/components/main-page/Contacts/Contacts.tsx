@@ -160,51 +160,69 @@ export default function Contacts() {
               </b>
             </div>
           )}
+          <div className={styles.text_item}>
+            <span>
+              Max: <br />
+            </span>
+            <b>
+              <a
+                href={`https://max.ru/u/f9LHodD0cOJXkvUiIk5EF5VMgw2CB2LZkyp7SmfL4IVQHkdP5iNpNW9B-eY`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.vkLink}
+              >
+                {contact.Telegram}
+              </a>
+            </b>
+          </div>
         </div>
-        
       </div>
 
       <div className={styles.text}>
-          <h3 className={styles.title} style={{ marginTop: "40px", fontSize: "28px" }}>
-            Контролирующие организации
-          </h3>
-          <div className={styles.numbers}>
-            <div className={styles.text_item}>
-              <span>
-                Росздравнадзор (надзор в сфере здравоохранения): <br />
-              </span>
-              <Link href="tel:+73842441093">+7 (3842) 44-10-93</Link>
-              <Link href="tel:+73842441092">+7 (3842) 44-10-92</Link>
-            </div>
-            <div className={styles.text_item}>
-              <span>
-                Роспотребнадзор (защита прав потребителей): <br />
-              </span>
-              <Link href="tel:+73842348788">+7 (3842) 34-87-88</Link>
-              <Link href="tel:+73842368788">+7 (3842) 36-87-88</Link>
-            </div>
-            <div className={styles.text_item}>
-              <span>
-                Министерство здравоохранения Кузбасса: <br />
-              </span>
-              <Link href="tel:+73842364284">+7 (3842) 36-42-84</Link>
-              <Link href="tel:+73842583655">+7 (3842) 58-36-55</Link>
-            </div>
-            <div className={styles.text_item}>
-              <span>
-                Управление лицензирования медико-фармацевтической деятельности: <br />
-              </span>
-              <Link href="tel:+73842543704">+7 (3842) 54-37-04</Link>
-              <Link href="tel:+73842543672">+7 (3842) 54-36-72</Link>
-            </div>
-            <div className={styles.text_item}>
-              <span>
-                Отдел по защите прав потребителей администрации г. Кемерово: <br />
-              </span>
-              <Link href="tel:+73842757510">+7 (3842) 75-75-10</Link>
-            </div>
+        <h3
+          className={styles.title}
+          style={{ marginTop: "40px", fontSize: "28px" }}
+        >
+          Контролирующие организации
+        </h3>
+        <div className={styles.numbers}>
+          <div className={styles.text_item}>
+            <span>
+              Росздравнадзор (надзор в сфере здравоохранения): <br />
+            </span>
+            <Link href="tel:+73842441093">+7 (3842) 44-10-93</Link>
+            <Link href="tel:+73842441092">+7 (3842) 44-10-92</Link>
           </div>
-          
+          <div className={styles.text_item}>
+            <span>
+              Роспотребнадзор (защита прав потребителей): <br />
+            </span>
+            <Link href="tel:+73842348788">+7 (3842) 34-87-88</Link>
+            <Link href="tel:+73842368788">+7 (3842) 36-87-88</Link>
+          </div>
+          <div className={styles.text_item}>
+            <span>
+              Министерство здравоохранения Кузбасса: <br />
+            </span>
+            <Link href="tel:+73842364284">+7 (3842) 36-42-84</Link>
+            <Link href="tel:+73842583655">+7 (3842) 58-36-55</Link>
+          </div>
+          <div className={styles.text_item}>
+            <span>
+              Управление лицензирования медико-фармацевтической деятельности:{" "}
+              <br />
+            </span>
+            <Link href="tel:+73842543704">+7 (3842) 54-37-04</Link>
+            <Link href="tel:+73842543672">+7 (3842) 54-36-72</Link>
+          </div>
+          <div className={styles.text_item}>
+            <span>
+              Отдел по защите прав потребителей администрации г. Кемерово:{" "}
+              <br />
+            </span>
+            <Link href="tel:+73842757510">+7 (3842) 75-75-10</Link>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styles from "./Footer.module.scss";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface ContactData {
   id: number;
@@ -156,7 +157,7 @@ export default function Footer() {
             <p>{contact.Email}</p>
           </Link>
         </div>
-        
+
         <div className={styles.footer_socials}>
           {/* WhatsApp ссылка */}
           <Link
@@ -187,6 +188,20 @@ export default function Footer() {
             </Link>
           )}
 
+          <Link
+            href={
+              "https://max.ru/u/f9LHodD0cOJXkvUiIk5EF5VMgw2CB2LZkyp7SmfL4IVQHkdP5iNpNW9B-eY"
+            }
+            className={styles.footer_socials_link}
+          >
+            <Image
+              src="/socials/max_logo.svg"
+              alt="Max"
+              width={42}
+              height={50}
+            />
+          </Link>
+
           {/* Telegram ссылка */}
           <Link
             href={getTelegramLink(contact.Telegram)}
@@ -199,12 +214,13 @@ export default function Footer() {
           </Link>
         </div>
         <div className={styles.footer_rigth__item}>
-          <Link href="/docs/ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ДАНТИСТЪ.pdf" target="_blank">
+          <Link
+            href="/docs/ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ДАНТИСТЪ.pdf"
+            target="_blank"
+          >
             <p>Политика конфиденциальности</p>
           </Link>
         </div>
-        
-        
       </div>
     </section>
   );

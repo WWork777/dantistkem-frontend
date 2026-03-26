@@ -164,6 +164,31 @@ export default function Header() {
                   </Link>
                 )}
 
+                <Link
+                  href={
+                    "https://max.ru/u/f9LHodD0cOJXkvUiIk5EF5VMgw2CB2LZkyp7SmfL4IVQHkdP5iNpNW9B-eY"
+                  }
+                >
+                  <Image
+                    src="/socials/max_logo.svg"
+                    alt="Max"
+                    width={25}
+                    height={30}
+                    className={` ${
+                      !isScrolled ? styles.visible : styles.hidden
+                    }`}
+                  />
+                  <Image
+                    src="/socials/max_logo.svg"
+                    alt="Max"
+                    width={25}
+                    height={30}
+                    className={` ${
+                      isScrolled ? styles.visible : styles.hidden
+                    }`}
+                  />
+                </Link>
+
                 {/* WhatsApp */}
                 {contact?.PhoneNumber && (
                   <Link
@@ -313,6 +338,19 @@ export default function Header() {
                   />
                 </Link>
               )}
+
+              <Link
+                href={
+                  "https://max.ru/u/f9LHodD0cOJXkvUiIk5EF5VMgw2CB2LZkyp7SmfL4IVQHkdP5iNpNW9B-eY"
+                }
+              >
+                <Image
+                  src="/socials/max_logo.svg"
+                  alt="Max"
+                  width={20}
+                  height={20}
+                />
+              </Link>
 
               {/* WhatsApp в мобильном меню */}
               {contact?.PhoneNumber && (
